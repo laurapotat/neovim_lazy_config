@@ -9,7 +9,7 @@ function config_blah()
                 preview = { '─', '│', '─', '│', '┌', '┐', '┘', '└'},
             },
             previewer = false,
-            prompt_title = false
+            prompt_title = false,
         })
 
     end
@@ -62,25 +62,21 @@ function config_blah()
 
     -- open vim config files
     local vim_files = function()
-        require("telescope.builtin")
-            .git_files(no_preview_cwd("~/.config/nvim"),{})
+        require("telescope.builtin").git_files(no_preview_cwd("~/.config/nvim"),{})
     end
 
     -- <-- builtin pickers with theme
     local ff= function()
-        require("telescope.builtin").find_files(no_preview(), {
-        })
+        require("telescope.builtin").find_files(no_preview(), {})
     end
     local gf = function()
-        require("telescope.builtin").git_files(no_preview(), {
-        })
+        require("telescope.builtin").git_files(no_preview(), {})
     end
     local grep = function()
-        require('telescope.builtin').live_grep(no_preview(), { })
+        require('telescope.builtin').live_grep(no_preview(), {})
     end
     local buffers = function()
-        require("telescope.builtin").buffers(no_preview(), {
-        })
+        require("telescope.builtin").buffers(no_preview(), {})
     end
     -->
 

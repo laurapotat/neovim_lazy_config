@@ -1,8 +1,9 @@
 function config_blah()
-    local cmp = require'cmp'
-    local lconf = require'lspconfig'
+    local cmp = require 'cmp'
+    local lconf = require 'lspconfig'
 
 
+    local select_opt = { behavior = cmp.SelectBehavior.Select }
     cmp.setup({
         completion = {
             -- keyword_length =  1,
@@ -15,11 +16,12 @@ function config_blah()
             end,
         },
         mapping = {
-            ['<C-n>']  = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-            ['<Down>']  = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-            ['<C-p>']  = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-            ['<Up>']  = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-            ['<tab>'] = cmp.mapping.confirm({ select = true }),
+            ['<C-n>']  = cmp.mapping.select_next_item(select_opt),
+            ['<Down>'] = cmp.mapping.select_next_item(select_opt),
+            ['<C-p>']  = cmp.mapping.select_prev_item(select_opt),
+            ['<Up>']   = cmp.mapping.select_prev_item(select_opt),
+            -- ['<tab>'] = cmp.mapping.confirm({ select = true }),
+            ['<C-h>']  = cmp.mapping.confirm({ select = false }),
         },
         sources = cmp.config.sources({
             { name = 'vsnip' },
@@ -28,29 +30,39 @@ function config_blah()
             { name = 'buffer' },
         })
 
-      })
+    })
+    -- i've heard this is required bc copilots plugin sucks
+    cmp.mapping["<tab>"] = nil
+    cmp.mapping["<S-tab>"] = nil
+
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-    require'mason'.setup()
-    require'mason-lspconfig'.setup {
-        ensure_installed = {
-            "pyright",
-            "jdtls",
-            "rust_analyzer",
-            "ocamllsp",
-            "clangd",
-            "tsserver",
-            "cssls",
-        }
+    local servers = {
+        "pyright",
+        "jdtls",
+        "rust_analyzer",
+        "tsserver",
+        "cssls",
+        "lua_ls",
+        "bashls",
+        "angularls",
     }
 
-    lconf.pyright.setup{capabilities = capabilities}
-    lconf.jdtls.setup{capabilities = capabilities}
-    lconf.rust_analyzer.setup{capabilities = capabilities}
-    lconf.ocamllsp.setup{capabilities = capabilities}
-    lconf.clangd.setup{capabilities = capabilities}
-    lconf.tsserver.setup{capabilities = capabilities}
-    lconf.cssls.setup{capabilities = capabilities}
+    local shared_opts = {
+        capabilities = capabilities
+    }
+
+    require 'mason'.setup()
+    require 'mason-lspconfig'.setup {
+        ensure_installed = servers
+    }
+
+    for _, server in ipairs(servers) do
+        lconf[server].setup { shared_opts }
+    end
+    -- gleam is autoinstalled, shouldn't install it with mason!!
+    lconf["gleam"].setup { shared_opts }
+
 
     vim.diagnostic.config({
         virtual_text = false,
@@ -66,7 +78,7 @@ function config_blah()
     vim.keymap.set("n", "<leader>,", ":lua vim.diagnostic.open_float(nil, {focus=false})<cr>")
     vim.keymap.set("n", "<leader>oi", ":lua vim.lsp.buf.code_action()<cr>")
     vim.keymap.set("n", "<leader>rn", ":lua vim.lsp.buf.rename()<cr>")
-    vim.keymap.set("n", "<leader>fr", ":lua vim.lsp.buf.format()<cr>")
+    vim.keymap.set("n", "<leader>f", ":lua vim.lsp.buf.format()<cr>")
 
     vim.keymap.set("n", "<leader>pn", ":lua vim.diagnostic.goto_next()<cr>")
 
@@ -77,6 +89,7 @@ function config_blah()
     vim.keymap.set("", "<leader>gs", ":lua vim.lsp.buf.signature_help()<cr>")
 
     -- idk how to do that in lua only
+    vim.opt.tw=79
     vim.cmd [[ imap <expr> <C-h> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<tab>h' ]]
 end
 

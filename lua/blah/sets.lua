@@ -16,15 +16,16 @@ vim.opt.showcmd=false
 -- do not show which current mode (Insert, Visual etc)
 vim.opt.showmode=false
 
--- disable cursor possition numbers at the bottom of the window
--- vim.opt.noruler
 -- change directory when opening a differnt file
-vim.opt.autochdir=true
+-- vim.opt.autochdir=true
+
+-- cursor position at teh bottom of the terminl
 vim.opt.ruler=false
 
 -- do not highlight things that match search
 vim.opt.hlsearch=false
 
+-- line numbers
 vim.opt.relativenumber=true
 vim.opt.nu=true
 
@@ -79,21 +80,9 @@ vim.opt.colorcolumn=tostring(tw)
 vim.opt.formatoptions='tc1rqnj'
 
 -- ignore case in search patterns
-vim.opt.ignorecase=true
-
---gruvbox, despacio, ayu, wombat, bvemu, benokai
---
--- chroma is good with transparancy, but has let/mut in rust are not highlighted
--- Tomorrow-Night is good with lua
--- colorscheme solarized8_light_high
--- vim.opt.bg=light
-
--- whitebox, Tomorrow, lightcolors
--- s
+-- vim.opt.ignorecase=true
 
 -- repeating timeout kinda thing, used to do something each timeout tick kinda
 -- thing
 vim.opt.timeout = true
 vim.opt.timeoutlen = 750
-
-

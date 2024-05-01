@@ -18,6 +18,7 @@ vim.keymap.set("n", "L", "<nop>")
 
 vim.keymap.set("", "M", "<nop>")
 vim.keymap.set("n", "J", "<nop>")
+vim.keymap.set("n", "K", "<nop>")
 vim.keymap.set("n", "V", "<nop>")
 vim.keymap.set("n", "G", "<nop>")
 
@@ -29,5 +30,3 @@ vim.keymap.set("n", "<F1>", "<nop>")
 vim.keymap.set('v', "<F1>", "<nop>")
 vim.keymap.set("", "<backspace>", "<nop>")
 vim.keymap.set("i", "<esc>", "<nop>")
-
-

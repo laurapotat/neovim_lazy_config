@@ -4,7 +4,7 @@ return {
         config = function()
             require'gruvbox'.setup({
                 terminal_colors = true, -- add neovim terminal colors
-                undercurl = false,
+                undercurl = true,
                 underline = true,
                 bold = true,
                 italic = {
