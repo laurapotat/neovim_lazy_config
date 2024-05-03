@@ -48,6 +48,17 @@ function config_blah()
         "angularls",
     }
 
+    local diagnostics_config = {
+        virtual_text = false,
+        signs = {
+            -- only show errors
+            severity = vim.diagnostic.severity.ERROR,
+        },
+        underline = false,
+        update_in_insert = false,
+        severity_sort = true
+    }
+
     local shared_opts = {
         capabilities = capabilities
     }
@@ -60,20 +71,13 @@ function config_blah()
     for _, server in ipairs(servers) do
         lconf[server].setup { shared_opts }
     end
+
     -- gleam is autoinstalled, shouldn't install it with mason!!
-    lconf["gleam"].setup { shared_opts }
+    lconf["gleam"].setup { 
+        shared_opts 
+    }
 
-
-    vim.diagnostic.config({
-        virtual_text = false,
-        signs = {
-            -- only show errors
-            severity = vim.diagnostic.severity.ERROR,
-        },
-        underline = false,
-        update_in_insert = false,
-        severity_sort = true
-    })
+    vim.diagnostic.config(diagnostics_config)
 
     vim.keymap.set("n", "<leader>,", ":lua vim.diagnostic.open_float(nil, {focus=false})<cr>")
     vim.keymap.set("n", "<leader>oi", ":lua vim.lsp.buf.code_action()<cr>")
@@ -98,6 +102,7 @@ return {
     dependencies = {
         'nvim-lua/popup.nvim',
         'nvim-lua/plenary.nvim',
+
         -- snippets
         'hrsh7th/vim-vsnip',
         'hrsh7th/vim-vsnip-integ',
