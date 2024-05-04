@@ -1,10 +1,45 @@
+-- this plugin forces u to use lazy like tihs and i hate it
+-- just cant have tings to be uniform
+
+local highlight = {
+    backdrop = false
+}
+local labels = "aoeuhtns.pgc"
+
 return {
     "folke/flash.nvim",
-    config = function ()
-        local flash = require'flash'
-        vim.keymap.set("", "s", "<nop>")
-        vim.keymap.set("", "S", "<nop>")
-        vim.keymap.set("n", "s", function () flash.jump() end)
-        vim.keymap.set("n", "S", function () flash.treesitter() end)
-    end
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {
+        -- home row of dworak
+        labels = labels,
+        search = {
+            mode = "fuzzy",
+        },
+        highlight = highlight,
+        label = {
+            uppercase = false,
+            rainbow = {
+                enabled = true
+            }
+        },
+        modes = {
+            char = {
+                jump_labels = true,
+                highlight = highlight
+            },
+        },
+        treesitter = {
+            labels = labels,
+            label = {
+                before = false
+            }
+        }
+    },
+    keys = {
+        { "<leader>s", mode = { "n", "x", "o" }, 
+            function() require("flash").jump() end, desc = "Flash" },
+        { "<leader>S", mode = { "n", "x", "o" }, 
+            function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    },
 }
