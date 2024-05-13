@@ -73,7 +73,7 @@ vim.opt.mouse='nvi'
 -- options)
 local tw = 79
 vim.opt.tw=tw
-vim.opt.colorcolumn=tostring(tw)
+vim.opt.colorcolumn=tostring(tw+1)
 
 -- text fromat options
 -- ':h fo-table' for more info

@@ -12,9 +12,9 @@ return {
     ---@type Flash.Config
     opts = {
         -- home row of dworak
-        labels = labels,
+        labels = ".pgcaoeuhtns",
         search = {
-            mode = "fuzzy",
+            mode = "match",
         },
         highlight = highlight,
         label = {
@@ -25,12 +25,11 @@ return {
         },
         modes = {
             char = {
-                jump_labels = true,
-                highlight = highlight
+                enabled = false,
             },
         },
         treesitter = {
-            labels = labels,
+            labels = ".pgcaoeuhtns",
             label = {
                 before = false
             }
