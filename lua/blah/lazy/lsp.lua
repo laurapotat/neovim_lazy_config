@@ -56,8 +56,8 @@ function config_blah()
         "cssls",
         "bashls",
         "angularls",
+        "pyright", 
         "docker_compose_language_service",
-        "zls",
     }
     for _, server in ipairs(servers) do
         lconf[server].setup { shared_opts }
@@ -65,6 +65,13 @@ function config_blah()
 
     -- gleam is autoinstalled, shouldn't install it with mason!!
     lconf["gleam"].setup { shared_opts }
+    lconf["zls"].setup {
+        zig = {
+            zls = {
+                enableAutofix = true
+            }
+        }
+    }
 
     ----------------------------------------------------------------------------
 

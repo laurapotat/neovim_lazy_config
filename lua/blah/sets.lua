@@ -86,3 +86,4 @@ vim.opt.formatoptions='tc1rqnj'
 -- thing
 vim.opt.timeout = true
 vim.opt.timeoutlen = 750
+

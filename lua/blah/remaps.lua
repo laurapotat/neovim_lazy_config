@@ -1,3 +1,4 @@
+
 vim.keymap.set('v', "\\j", "Jgqq")
 
 vim.keymap.set('v', "\\J", "J")
@@ -102,4 +103,5 @@ end
 
 vim.keymap.set("n", "<leader>n", toggle_number)
 vim.keymap.set("i", "jj", "<esc>")
+
 

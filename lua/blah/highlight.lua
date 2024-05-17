@@ -1,9 +1,11 @@
 -- vim.cmd [[ autocmd InsertEnter * :set cursorline ]]
 -- vim.cmd [[ autocmd InsertLeave * :set nocursorline ]]
 
+local M = {}
+
 vim.api.nvim_create_augroup("FiletypeColors", {})
 
-function set_colorscheme(colorscheme)
+function M.set_colorscheme(colorscheme)
     vim.cmd("colorscheme " .. colorscheme)
     vim.cmd [[ highlight SignColumn ctermbg=NONE guibg=NONE ]]
 
@@ -11,7 +13,7 @@ function set_colorscheme(colorscheme)
     vim.cmd [[ highlight @parameter ctermfg=NONE guifg=NONE ]]
     vim.cmd [[ highlight SignColumn ctermbg=NONE guibg=NONE ]]
 
-    vim.cmd [[ highlight Comment gui=italic ]]
+    vim.cmd [[ highlight @comment gui=italic ]]
 
     vim.cmd [[ highlight Pmenu guibg=#e8e8e8 ]]
     vim.cmd [[ highlight Pmenu guibg=#000000 ]]
@@ -21,7 +23,7 @@ function set_colorscheme(colorscheme)
 end
 
 --- create autocmd that sets colorscheme based on the filetype
-function colorscheme(filetype, colorscheme)
+function M.colorscheme(filetype, colorscheme)
     vim.api.nvim_create_autocmd("BufEnter", {
         group = "FiletypeColors",
         pattern = {"*" .. filetype},
@@ -31,7 +33,18 @@ function colorscheme(filetype, colorscheme)
     })
 end
 
+vim.api.nvim_create_augroup("StatusLine", {})
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = "StatusLine",
+    pattern = {"*"},
+    callback = function ()
+        print(vim.fn.expand("%:."))
+    end
+})
+
    
-colorscheme(".zig", "gruvbox")
-colorscheme(".rs", "default")
-set_colorscheme("gruvbox")
+M.colorscheme(".zig", "gruvbox")
+-- colorscheme(".rs", "default")
+M.set_colorscheme("gruvbox")
+
+return M
