@@ -1,14 +1,18 @@
 
 function config_blah()
+    -- setup completion 
+    
     local cmp = require 'cmp'
     local lconf = require 'lspconfig'
 
 
+    -- do not insert text when changing wihch item in completion list is
+    -- selected
     local select_opt = { behavior = cmp.SelectBehavior.Select }
+
     cmp.setup({
         completion = {
-            -- keyword_length =  1,
-            -- autocomplete = true,
+            autocomplete = false,
         },
         snippet = {
             -- specify a snippet engine
@@ -17,24 +21,24 @@ function config_blah()
             end,
         },
         mapping = {
+            -- select next 
             ['<C-n>']  = cmp.mapping.select_next_item(select_opt),
-            ['<Down>'] = cmp.mapping.select_next_item(select_opt),
+            -- select prev
             ['<C-p>']  = cmp.mapping.select_prev_item(select_opt),
-            ['<Up>']   = cmp.mapping.select_prev_item(select_opt),
-            -- ['<tab>'] = cmp.mapping.confirm({ select = true }),
+            -- show completion list on Ctrl+Space
+            ['<C-space>'] = cmp.mapping.complete(),
+            -- complete. this will could insert some things that you might not
+            -- expect
             ['<C-h>']  = cmp.mapping.confirm({ select = false }),
         },
+
         sources = cmp.config.sources({
             { name = 'vsnip' },
             { name = 'nvim_lsp' },
         }, {
             { name = 'buffer' },
         })
-
     })
-    -- i've heard this is required bc copilots plugin sucks
-    cmp.mapping["<tab>"] = nil
-    cmp.mapping["<S-tab>"] = nil
 
 
     ----------------------------------------------------------------------------
@@ -77,6 +81,7 @@ function config_blah()
 
     vim.api.nvim_create_augroup("LspGroup", {})
 
+    -- only add lsp binding when lps is loaded
     vim.api.nvim_create_autocmd("LspAttach", {
         pattern = {"*"},
         group = "LspGroup",
@@ -93,8 +98,10 @@ function config_blah()
 
             vim.keymap.set("", "<leader>ph", ":lua vim.lsp.buf.hover()<cr>")
             vim.keymap.set("", "<leader>gs", ":lua vim.lsp.buf.signature_help()<cr>")
+            -- some lsps change tw, prevent that
             vim.opt.tw=79
 
+            -- disable highlighting provided by the server
             local client = vim.lsp.get_client_by_id(args.data.client_id)
             client.server_capabilities.semanticTokensProvider = nil
         end
@@ -103,6 +110,7 @@ function config_blah()
     
     ----------------------------------------------------------------------------
 
+    -- minimal diangostics on the screen
     local diagnostics_config = {
         virtual_text = false,
         signs = {
@@ -118,9 +126,9 @@ function config_blah()
 
     ----------------------------------------------------------------------------
     
+    -- filetype specific _lsp_ settings 
     vim.api.nvim_create_augroup("LSaoPaulo", {})
     
-    -- enable signes in gleam because ? idk i dont rember why i wanted them
     vim.api.nvim_create_autocmd("BufEnter", {
         group = "LSaoPaulo",
         pattern = {"*.gleam"},
@@ -130,22 +138,11 @@ function config_blah()
         end
     })
 
-    -- disable afwul autoformat. was very confused at first because this 
-    -- is enabled without me installing anytihng other than the zig compiler :(
-    vim.api.nvim_create_autocmd("BufEnter", {
-        group = "LSaoPaulo",
-        pattern = {"*.zig"},
-        callback = function ()
-            -- like actually wtf i never instaleld any extensions
-            -- i cant find it with find ~/* -name "*zig*" and 
-            -- there is only documentation on a page that says that you
-            -- need to install it im so confused ?
-            vim.cmd [[ let g:zig_fmt_autosave = 0 ]]
-        end
-    })
-    
     ----------------------------------------------------------------------------
     
+    -- map snippets. 
+    -- some servers provide snipets 
+    -- but this will only work with manually created ones.
     vim.cmd [[ imap <expr> <C-h> vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-h>' ]]
 end
 
@@ -176,6 +173,5 @@ return {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
     },
-    opts= {autoformat = false},
     config = config_blah
 }
