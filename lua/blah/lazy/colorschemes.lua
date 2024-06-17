@@ -24,9 +24,6 @@ return {
                 contrast = "",  -- can be "hard", "soft" or empty string
                 palette_overrides = {},
                 overrides = {
-                    ["@comment"] = { 
-                        fg = gruvbox.palette.neutral_blue,
-                    },
                     --<------------------------------------------------ 
                     -- this is nightly version things. 
                     ["@comment.todo"] = { 
@@ -40,10 +37,7 @@ return {
                     },
                     ["@comment.warning"] = { 
                         fg = gruvbox.palette.neutral_orange ,
-                    },
-                    ["@comment.documentation"] = {
-                        fg = gruvbox.palette.neutral_orange,
-                    },
+                    }
                     --------------------------------------------------->
                 },
                 dim_inactive = false,

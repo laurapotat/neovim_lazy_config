@@ -12,7 +12,7 @@ function config_blah()
 
     cmp.setup({
         completion = {
-            autocomplete = false,
+            --autocomplete = false,
         },
         snippet = {
             -- specify a snippet engine
@@ -23,10 +23,13 @@ function config_blah()
         mapping = {
             -- select next 
             ['<C-n>']  = cmp.mapping.select_next_item(select_opt),
+
             -- select prev
             ['<C-p>']  = cmp.mapping.select_prev_item(select_opt),
+
             -- show completion list on Ctrl+Space
             ['<C-space>'] = cmp.mapping.complete(),
+
             -- complete. this will could insert some things that you might not
             -- expect
             ['<C-h>']  = cmp.mapping.confirm({ select = false }),
@@ -39,7 +42,7 @@ function config_blah()
             { name = 'buffer' },
         })
     })
-
+  
 
     ----------------------------------------------------------------------------
     
@@ -89,15 +92,14 @@ function config_blah()
             vim.keymap.set("n", "<leader>,", ":lua vim.diagnostic.open_float(nil, {focus=false})<cr>")
             vim.keymap.set("n", "<leader>ca", ":lua vim.lsp.buf.code_action()<cr>")
             vim.keymap.set("n", "<leader>rn", ":lua vim.lsp.buf.rename()<cr>")
-            vim.keymap.set("n", "<leader>f", ":lua vim.lsp.buf.format()<cr>")
-
-            vim.keymap.set("n", "<leader>pn", ":lua vim.diagnostic.goto_next()<cr>")
 
             vim.keymap.set("n", "<leader>pd", ":lua vim.lsp.buf.definition()<cr>")
             vim.keymap.set("n", "<leader>pr", ":lua vim.lsp.buf.references()<cr>")
 
             vim.keymap.set("", "<leader>ph", ":lua vim.lsp.buf.hover()<cr>")
-            vim.keymap.set("", "<leader>gs", ":lua vim.lsp.buf.signature_help()<cr>")
+
+            vim.keymap.set("", "<leader>pn", ":lua vim.diagnostic.goto_next()<cr>")
+
             -- some lsps change tw, prevent that
             vim.opt.tw=79
 
@@ -121,6 +123,7 @@ function config_blah()
         update_in_insert = false,
         severity_sort = true,
     }
+    
     vim.diagnostic.config(diagnostics_config)
 
 
@@ -128,12 +131,12 @@ function config_blah()
     
     -- filetype specific _lsp_ settings 
     vim.api.nvim_create_augroup("LSaoPaulo", {})
-    
+
     vim.api.nvim_create_autocmd("BufEnter", {
         group = "LSaoPaulo",
-        pattern = {"*.gleam"},
-        callback = function ()
-            diagnostics_config.signs = {}
+        pattern = {"*.java"},
+        callback = function (args)
+            diagnostics_config.signs = false
             vim.diagnostic.config(diagnostics_config)
         end
     })
