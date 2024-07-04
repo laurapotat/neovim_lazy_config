@@ -13,6 +13,7 @@ function config_blah()
     cmp.setup({
         completion = {
             --autocomplete = false,
+            keyword_length = 3
         },
         snippet = {
             -- specify a snippet engine
@@ -58,6 +59,7 @@ function config_blah()
 
     local servers = {
         "rust_analyzer",
+        "gdscript",
         "tsserver",
         "lua_ls",
         "cssls",

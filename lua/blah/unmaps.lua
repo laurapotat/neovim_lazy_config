@@ -1,5 +1,3 @@
-vim.keymap.set("", "s", "<nop>")
-vim.keymap.set("", "<leader>s", "<nop>")
 
 vim.keymap.set("", "&", "<nop>")
 

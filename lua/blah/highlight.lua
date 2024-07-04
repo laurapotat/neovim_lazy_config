@@ -13,8 +13,6 @@ function M.set_colorscheme(colorscheme)
     vim.cmd [[ highlight @parameter ctermfg=NONE guifg=NONE ]]
     vim.cmd [[ highlight SignColumn ctermbg=NONE guibg=NONE ]]
 
-    vim.cmd [[ highlight @comment gui=italic ]]
-
     vim.cmd [[ highlight Pmenu guibg=#e8e8e8 ]]
     vim.cmd [[ highlight Pmenu guibg=#000000 ]]
 

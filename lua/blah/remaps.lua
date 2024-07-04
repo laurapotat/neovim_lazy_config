@@ -72,3 +72,9 @@ end
 -- vim.keymap.set("n", "<leader>n", toggle_number)
 vim.keymap.set("i", "jj", "<esc>")
 
+
+-- close and delete buffer 
+vim.keymap.set("n", "<leader>bd", ":bdelete<cr>")
+
+-- open explorer
+vim.keymap.set("n", "<leader>.", ":Ex<cr>")

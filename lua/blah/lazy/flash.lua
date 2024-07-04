@@ -2,7 +2,7 @@
 -- just cant have tings to be uniform
 
 local highlight = {
-    backdrop = false
+    backdrop = true
 }
 local labels = "aoeuhtns.pgc"
 
