@@ -8,9 +8,6 @@ vim.keymap.set("", "R", "r")
 -- copy between cursor and end of the line (could be default in neovim nowdays)
 vim.keymap.set("", "Y", "y$")
 
--- open file explorer
-vim.keymap.set("", "<leader>ex", ":Explore!<CR>")
-
 -- remap line selection to _ so i don't have to press shift key
 vim.keymap.set("n", "-", "V")
 vim.keymap.set('v', "-", "<esc>")
@@ -78,3 +75,6 @@ vim.keymap.set("n", "<leader>bd", ":bdelete<cr>")
 
 -- open explorer
 vim.keymap.set("n", "<leader>.", ":Ex<cr>")
+
+-- exit terminal input
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")

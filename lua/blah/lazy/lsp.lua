@@ -13,7 +13,9 @@ function config_blah()
     cmp.setup({
         completion = {
             --autocomplete = false,
-            keyword_length = 3
+            
+            -- uncomment this for gdscript (it is veeeeery slow otherwise)
+            -- keyword_length = 3
         },
         snippet = {
             -- specify a snippet engine

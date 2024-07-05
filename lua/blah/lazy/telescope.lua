@@ -53,7 +53,7 @@ function config_blah()
     require('telescope').load_extension('fzy_native')
 
     -- use find_files if git_files didn't found git repo
-    local project_files = function()
+    function project_files ()
         local opts = no_preview()
         opts.show_untracked = true
         local ok = pcall(require'telescope.builtin'.git_files, opts)
@@ -61,21 +61,22 @@ function config_blah()
     end
 
     -- open vim config files
-    local vim_files = function()
+    function vim_files()
         require("telescope.builtin").git_files(no_preview_cwd("~/.config/nvim"),{})
     end
 
     -- <-- builtin pickers with theme
-    local ff= function()
-        require("telescope.builtin").find_files(no_preview(), {})
+    function ff()
+	    require("telescope.builtin").find_files(no_preview(), {})
     end
-    local gf = function()
+    
+    function gf()
         require("telescope.builtin").git_files(no_preview(), {})
     end
-    local grep = function()
+    function grep()
         require('telescope.builtin').live_grep(no_preview(), {})
     end
-    local buffers = function()
+    function buffers() 
         require("telescope.builtin").buffers(no_preview(), {})
     end
     -->
