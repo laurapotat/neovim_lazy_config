@@ -21,6 +21,7 @@ return {
             -- XXX: it is important to trim whitespaces becuse mini espcapes 
             -- them intrenaly (ie a "\" gets added before each space)
             local proj_name, _ = tostring(proj_name):gsub("%s", "")
+            return proj_name
         end
 
         function write() 

@@ -68,6 +68,7 @@ function config_blah()
         "bashls",
         "angularls",
         "pyright", 
+        "clangd",
         "docker_compose_language_service",
     }
     for _, server in ipairs(servers) do

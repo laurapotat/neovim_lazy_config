@@ -40,9 +40,13 @@ local function mark_integration()
     return ret
 end
 
+local function get_filetype() 
+    local file = vim.fn.expand("%:e")
+    return tostring(file)
+end
+
 return {
     'echasnovski/mini.map',
-
     config = function () 
         local mini_map = require('mini.map')
         mini_map.setup({
@@ -60,6 +64,10 @@ return {
        
         vim.keymap.set('n', "<leader>tm", mini_map.toggle)
 
-        mini_map.open()
+
+        local disabled_filetypes = { "md" }
+        if not H.contains(disabled_filetypes, get_filetype()) then
+            mini_map.open()
+        end
     end
 }
