@@ -96,6 +96,7 @@ function config_blah()
         callback = function (args)
             vim.keymap.set("n", "<leader>,", ":lua vim.diagnostic.open_float(nil, {focus=false})<cr>")
             vim.keymap.set("n", "<leader>ca", ":lua vim.lsp.buf.code_action()<cr>")
+            vim.keymap.set("v", "<leader>ca", ":lua vim.lsp.buf.code_action()<cr>")
             vim.keymap.set("n", "<leader>rn", ":lua vim.lsp.buf.rename()<cr>")
 
             vim.keymap.set("n", "<leader>pd", ":lua vim.lsp.buf.definition()<cr>")

@@ -66,6 +66,7 @@ function config_blah()
     end
 
     -- <-- builtin pickers with theme
+    --- find files. 
     function ff()
 	    require("telescope.builtin").find_files(no_preview(), {})
     end
@@ -79,14 +80,18 @@ function config_blah()
     function buffers() 
         require("telescope.builtin").buffers(no_preview(), {})
     end
+    function treesitter() 
+        require("telescope.builtin").treesitter(no_preview(), {})
+    end
     -->
 
-    vim.keymap.set("n", "<leader>tg", ff)
-    vim.keymap.set("n", "<leader>th", project_files)
-    vim.keymap.set("n", "<leader>tb", buffers)
-    vim.keymap.set("n", "<leader>vim", vim_files)
+    vim.keymap.set("n", "<leader>tg", ff, { desc = " find files" })
+    vim.keymap.set("n", "<leader>te", treesitter, { desc = " treesitter picker" })
+    vim.keymap.set("n", "<leader>th", project_files, { desc = " treesitter picker" })
+    vim.keymap.set("n", "<leader>tb", buffers, { desc = " open buffers picker" })
+    vim.keymap.set("n", "<leader>vim", vim_files, { desc = " vim files picker" })
 
-    vim.keymap.set("n", "<leader>ps", grep)
+    vim.keymap.set("n", "<leader>ps", grep, { desc = " grep project", })
 
 end
 

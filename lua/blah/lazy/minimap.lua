@@ -1,4 +1,5 @@
 local H = {}
+local enabled = false
 
 --- whether value is in the array
 --- @param tab table
@@ -66,7 +67,7 @@ return {
 
 
         local disabled_filetypes = { "md" }
-        if not H.contains(disabled_filetypes, get_filetype()) then
+        if enabled and not H.contains(disabled_filetypes, get_filetype()) then
             mini_map.open()
         end
     end
